@@ -9,166 +9,188 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
     <style>
-        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css');
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #d8f3dc, #b7e4c7);
-            margin: 0;
-            padding: 0;
+    body {
+        font-family: 'Inter', sans-serif;
+        background: #0c0f14;
+        margin: 0;
+        padding: 0;
+        color: #e4e6eb;
+    }
+
+    h1, h2, h3 {
+        font-weight: 600;
+        margin: 0;
+        letter-spacing: 0.5px;
+    }
+
+    #loginForm {
+        width: 340px;
+        margin: 140px auto;
+        padding: 30px;
+        border-radius: 18px;
+        text-align: center;
+
+        background: rgba(255, 255, 255, 0.06);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
+        animation: fadeIn 1s ease;
+    }
+
+    #loginForm h2 {
+        color: #8ae9c1;
+        margin-bottom: 15px;
+    }
+
+    #loginForm input {
+        width: 92%;
+        padding: 12px;
+        margin: 10px 0;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        color: #e4e6eb;
+        outline: none;
+        transition: 0.3s;
+    }
+
+    #loginForm input:focus {
+        border-color: #8ae9c1;
+        box-shadow: 0 0 8px rgba(138, 233, 193, 0.4);
+    }
+
+    #loginForm button {
+        width: 95%;
+        padding: 12px;
+        background: #8ae9c1;
+        color: #0c0f14;
+        font-weight: 700;
+        border-radius: 10px;
+        cursor: pointer;
+        border: none;
+        font-size: 15px;
+        margin-top: 12px;
+        transition: 0.3s;
+    }
+
+    #loginForm button:hover {
+        background: #6fd8ae;
+        transform: translateY(-2px);
+    }
+
+    #dashboard {
+        width: 90%;
+        max-width: 900px;
+        margin: 40px auto;
+        animation: fadeIn 1s ease;
+    }
+
+    #dashboard h1 {
+        color: #8ae9c1;
+        margin-bottom: 25px;
+        text-align: center;
+    }
+
+    .card {
+        padding: 25px;
+        border-radius: 20px;
+
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+
+        margin-bottom: 22px;
+        transition: 0.3s;
+
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+    }
+
+    .card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.45);
+    }
+
+    .card h3 {
+        display: flex;
+        align-items: center;
+        font-size: 19px;
+        gap: 12px;
+        color: #6fd8ae;
+        margin-bottom: 10px;
+    }
+
+    .card:nth-of-type(1) h3::before {
+        content: "\f043";
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+        color: #8ae9c1;
+    }
+
+    .card:nth-of-type(2) h3::before {
+        content: "\f185";
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+        color: #ffe27a;
+    }
+
+    .card:nth-of-type(3) h3::before {
+        content: "\f554";
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+        color: #8ae9c1;
+    }
+
+    .value-box {
+        font-size: 40px;
+        font-weight: 700;
+        color: #ffffff;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    span {
+        font-size: 15px;
+        color: #8ae9c1;
+        font-weight: 500;
+    }
+
+    #logoutBtn {
+        padding: 12px 25px;
+        background: #ff4d4d;
+        color: white;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        display: block;
+        margin: 25px auto 0;
+        font-size: 16px;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+    #logoutBtn:hover {
+        background: #d93b3b;
+        transform: scale(1.07);
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(15px);
         }
-
-        h1,
-        h2,
-        h3 {
-            font-weight: 600;
-            color: #1b4332;
-            letter-spacing: 0.5px;
+        to {
+            opacity: 1;
+            transform: translateY(0);
         }
+    }
+</style>
 
-        #loginForm {
-            width: 340px;
-            margin: 120px auto;
-            padding: 30px;
-            background: white;
-            border-radius: 18px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
-            text-align: center;
-            animation: fadeIn 0.8s ease;
-        }
-
-        #loginForm input {
-            width: 92%;
-            padding: 12px;
-            margin: 10px 0;
-            border: 2px solid #95d5b2;
-            border-radius: 10px;
-            outline: none;
-            font-size: 14px;
-            transition: 0.3s;
-        }
-
-        #loginForm input:focus {
-            border-color: #40916c;
-            box-shadow: 0 0 6px rgba(64, 145, 108, 0.3);
-        }
-
-        #loginForm button {
-            width: 95%;
-            padding: 12px;
-            background: #2d6a4f;
-            border: none;
-            color: white;
-            font-size: 16px;
-            border-radius: 10px;
-            cursor: pointer;
-            margin-top: 12px;
-            font-weight: 600;
-            transition: 0.3s;
-        }
-
-        #loginForm button:hover {
-            background: #1b4332;
-            transform: translateY(-2px);
-        }
-
-        #dashboard {
-            width: 90%;
-            max-width: 900px;
-            margin: 40px auto 60px;
-            animation: fadeIn 1s ease;
-        }
-
-        .card {
-            background: white;
-            padding: 25px;
-            border-radius: 18px;
-            margin-bottom: 22px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10);
-            transition: 0.3s;
-        }
-
-        .card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
-        }
-
-        .card h3 {
-            margin-top: 0;
-            color: #1b4332;
-            font-size: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .card:nth-of-type(1) h3::before {
-            content: "\f043";
-            font-family: "Font Awesome 6 Free";
-            font-weight: 900;
-            color: #2d6a4f;
-        }
-
-        .card:nth-of-type(2) h3::before {
-            content: "\f185";
-            font-family: "Font Awesome 6 Free";
-            font-weight: 900;
-            color: #e5a823;
-        }
-
-        .card:nth-of-type(3) h3::before {
-            content: "\f554";
-            font-family: "Font Awesome 6 Free";
-            font-weight: 900;
-            color: #2d6a4f;
-        }
-
-        .value-box {
-            font-size: 36px;
-            font-weight: 700;
-            color: #2d6a4f;
-            margin-top: 8px;
-            margin-bottom: 5px;
-        }
-
-        span {
-            font-size: 14px;
-            color: #40916c;
-            font-weight: 500;
-        }
-
-        #logoutBtn {
-            padding: 12px 25px;
-            background: #d62828;
-            color: white;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            display: block;
-            margin: 20px auto 0;
-            font-size: 15px;
-            font-weight: 600;
-            transition: 0.3s;
-        }
-
-        #logoutBtn:hover {
-            background: #b71c1c;
-            transform: scale(1.03);
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-    </style>
 
 </head>
 
